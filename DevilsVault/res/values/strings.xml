@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DevilsVault</string>
+
+    <!-- Splash screen -->
+    <string name="title_splash_screen">DevilsVault</string>
+    
+    <!-- Tab bar titles -->
+    <string name="title_section1">All Items</string>
+    <string name="title_section2">Add New</string>
+    
+    <!-- Add New Items Screen -->
+    <string name="title">Title</string>
+	<string name="description">Description</string>
+	<string name="email">Email</string>
+	<string name="username">Username</string>
+	<string name="password">Password</string>
+	<string name="url">Website link (URL)</string>
+	<string name="note">Note</string>
+	<string name="save">Save</string>
+	<string name="delete">Delete</string>
+	
+	<!-- Edit/Update Items Screen -->
+    <string name="EditUpdateScreenTitleLabel">Details</string>
+
+    <!-- Menu items -->
+    <string name="action_change_password">Change Password</string>
+    <string name="action_about">About</string>
+    
+    <!-- Change Password Screen -->
+    <string name="title_password">Password</string>
+    <string name="title_old_password">Old Password</string>
+    <string name="title_new_password">New Password</string>
+    <string name="title_confirm_password">Confirm Password</string>
+    
+    
+    <!-- About Screen -->
+    <string name="action_about_text">
+        
+        <b>DevilsVault</b> is an effort to keep your secrets as secret. 
+        \n
+        \n
+        With this application you can keep your informations secret with a password of your choice. Your password is never stored on the device or anywhere else. 
+        Just one password is all you need to keep your other informations all the times with you and whever you want.
+        \n
+        \n
+        The application uses AES encryption and other techniques to keep your information secret and is decrypted on demand.
+        \n
+        \n
+        If you liked the application, help spread some word on Twitter - <a href="http://twitter.com/intent/tweet?screen_name=sharma_saroj">@sharma_saroj</a>
+        \n
+        \n
+        Thank you for using the application and showing your confidence.
+        \n
+        \n
+	</string>
+	
+</resources>
