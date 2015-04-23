@@ -1,6 +1,8 @@
 package com.coffee.DevilsVault;
 
 
+import java.lang.ref.WeakReference;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +14,8 @@ import android.widget.Toast;
 public class EditUpdateItemActivity extends Activity {
 	
 	private DevilsEntity de;
-	private EditUpdateItemActivity thisActivity;;
+	
+	private WeakReference<EditUpdateItemActivity> thisActivity;
 	
 	public EditUpdateItemActivity() {
 		
@@ -39,7 +42,8 @@ public class EditUpdateItemActivity extends Activity {
 		buttonDelete.setOnClickListener(new deleteButtonListener());
 		buttonDelete.setVisibility(View.VISIBLE);
 		
-		thisActivity = this;
+		// Keep a weak reference of current activity.
+		thisActivity = new WeakReference<EditUpdateItemActivity>(this);
 	}
 
 	private void populateData(DevilsEntity de){
@@ -127,7 +131,7 @@ public class EditUpdateItemActivity extends Activity {
 					// Set SHOULD_UPDATE_LIST = true, so that list gets updated on next tab selection
 					AllItemsFragment.SHOULD_UPDATE_LIST = true;
 					
-					thisActivity.finish();
+					thisActivity.get().finish();
 					
 				}else{
 					Toast.makeText(getApplicationContext(), "Item could not be deleted. Please try again!", Toast.LENGTH_LONG).show();
