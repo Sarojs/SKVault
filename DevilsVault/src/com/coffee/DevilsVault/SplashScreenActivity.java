@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.LayoutInflater;
 
 public class SplashScreenActivity extends Activity {
 
@@ -20,6 +19,15 @@ public class SplashScreenActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		getActionBar().hide();
+		
+//		# WARNING: Need to relocate this DatabseInitializer statement to a better place.
+		try {
+			DatabaseHelper.setupSharedInstance(this, "ManiacKey");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		showScreen();
 		
 		
@@ -33,14 +41,23 @@ public class SplashScreenActivity extends Activity {
 		
 		splashActivity = new WeakReference<SplashScreenActivity>(this);
 		
+		final boolean isUserPresent = DatabaseHelper.sharedInstance().isUserPresent();
+		
 		final Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
 		  @Override
 		  public void run() {
-		    //Do something after 100ms
 			  
-			  Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+			  Intent intent = new Intent(getApplicationContext(), ChangePasswordActivity.class);
+			  if(isUserPresent){
+				  intent.putExtra("ScreenType", ChangePasswordActivity.ScreenTypeCreatePassword);
+			  }else{
+				  intent.putExtra("ScreenType", ChangePasswordActivity.ScreenTypeCreatePassword);
+			  }
 			  startActivity(intent);
+			  
+//			  Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//			  startActivity(intent);
 			  
 			  new Timer().schedule(new TimerTask() {          
 				    @Override

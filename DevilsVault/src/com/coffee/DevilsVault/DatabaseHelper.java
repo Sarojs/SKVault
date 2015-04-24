@@ -47,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String KEY_PASSWORD = "password";
 	private static final String KEY_URL = "url";
 	private static final String KEY_NOTE = "note";
-	private static final String CREATE_TABLE_VAULT = "CREATE TABLE "
+	private static final String CREATE_TABLE_VAULT = "CREATE TABLE IF NOT EXISTS"
 			+ TABLE_VAULT + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
 			+ KEY_CREATED_AT + " DATETIME," + KEY_MODIFIED_AT + " DATETIME,"
 			+ KEY_TITLE + " TEXT," + KEY_DESCRIPTION + " TEXT," + KEY_EMAIL
@@ -58,8 +58,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String KEY_IDED = "Ided";
 	private static final String KEY_MASTER = "Master";
 	private static final String KEY_SLAVE = "Slave";
-	private static final String CREATE_TABLE_VAULT_MASTER = "CREATE TABLE "
-			+ TABLE_VAULT + "("+ KEY_IDED + " TEXT" + KEY_MASTER + " TEXT" + KEY_SLAVE + " TEXT" +")";
+	private static final String CREATE_TABLE_VAULT_MASTER = "CREATE TABLE IF NOT EXISTS"
+			+ TABLE_VAULT_MASTER + "("+ KEY_IDED + " TEXT" + KEY_MASTER + " TEXT" + KEY_SLAVE + " TEXT" +")";
 	
 	
 	public static DatabaseHelper setupSharedInstance(Context context,
@@ -85,7 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public DatabaseHelper(Context context, String secretKey) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		try {
-			cryptor = new AES128(secretKey);
+//			cryptor = new AES128(secretKey);
 		} catch (Exception e) {
 			// TODO: handle exception
 			Log.e(LOG,
@@ -94,6 +94,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 	}
 
+	/**
+	 * 
+	 * @return Returns if master table is present and has user. User is not registered if table is not present.
+	 */
+	public boolean isUserPresent(){
+
+		String selectQuery = "SELECT * FROM sqlite_master WHERE name ='"+ TABLE_VAULT_MASTER  +"' and type='table'";
+
+		Log.e(LOG, selectQuery);
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor c = db.rawQuery(selectQuery, null);
+
+		boolean hasRows = false;
+		try {
+			// looping through all rows and adding to list
+			if (c.moveToFirst()) {
+				hasRows = true;
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return hasRows;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -103,9 +130,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// creating required tables
-		db.execSQL(CREATE_TABLE_VAULT);
-		db.execSQL(CREATE_TABLE_VAULT_MASTER);
+//		// creating required tables
+//		db.execSQL(CREATE_TABLE_VAULT);
+//		db.execSQL(CREATE_TABLE_VAULT_MASTER);
 	}
 
 	@Override
@@ -116,6 +143,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 
+	/**
+	 * Creates the tables in given database if not present.
+	 * @param db- The database instance where the tables needs to be created.
+	 */
+	private void createTablesIfRequired(SQLiteDatabase db){
+		// creating required tables
+		db.execSQL(CREATE_TABLE_VAULT);
+		db.execSQL(CREATE_TABLE_VAULT_MASTER);
+		// Hopefully the tables gets created before control reaches here. No means to know is query was succesfull or failed.
+	}
+	
 	public void demo(String plain) {
 		try {
 			String encoded = cryptor.encrypt(plain);
@@ -153,6 +191,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		SQLiteDatabase db = this.getWritableDatabase();
 
+		createTablesIfRequired(db);	// Create table if not already created.
+		
 		long todo_id = Integer.MIN_VALUE;
 
 		ContentValues values = new ContentValues();

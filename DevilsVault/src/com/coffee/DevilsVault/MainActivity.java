@@ -57,13 +57,13 @@ public class MainActivity extends FragmentActivity implements
 		// Set the application tag at first for logging purpose.
 		SKConstants.init(getApplicationContext());
 
-		//	# WARNING: Need to relocate this DatabseInitializer statement to a better place.
-		try {
-			DatabaseHelper.setupSharedInstance(this, "ManiacKey");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		//	# WARNING: Need to relocate this DatabseInitializer statement to a better place.
+//		try {
+//			DatabaseHelper.setupSharedInstance(this, "ManiacKey");
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -120,7 +120,7 @@ public class MainActivity extends FragmentActivity implements
 		if(item.getOrder() == 1){
 			// Launch change password screen.
 			Intent intent = new Intent(this, ChangePasswordActivity.class);
-			intent.putExtra("ScreenType", ChangePasswordScreenType.ChangePassword);
+			intent.putExtra("ScreenType", ChangePasswordActivity.ScreenTypeChangePassword);
 		    startActivity(intent);
 		    
 		}else if(item.getOrder() == 2){

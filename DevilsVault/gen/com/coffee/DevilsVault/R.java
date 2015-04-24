@@ -71,7 +71,7 @@ public final class R {
         public static final int action_about=0x7f05000f;
         /**  About Screen 
          */
-        public static final int action_about_text=0x7f050014;
+        public static final int action_about_text=0x7f050017;
         /**  Menu items 
          */
         public static final int action_change_password=0x7f05000e;
@@ -85,12 +85,15 @@ public final class R {
         /**  Add New Items Screen 
          */
         public static final int title=0x7f050004;
-        public static final int title_confirm_password=0x7f050013;
-        public static final int title_new_password=0x7f050012;
-        public static final int title_old_password=0x7f050011;
+        public static final int title_action_bar_change_password=0x7f050012;
+        public static final int title_action_bar_enter_password=0x7f050011;
         /**  Change Password Screen 
          */
-        public static final int title_password=0x7f050010;
+        public static final int title_action_bar_set_password=0x7f050010;
+        public static final int title_confirm_password=0x7f050016;
+        public static final int title_new_password=0x7f050015;
+        public static final int title_old_password=0x7f050014;
+        public static final int title_password=0x7f050013;
         /**  Tab bar titles 
          */
         public static final int title_section1=0x7f050002;
